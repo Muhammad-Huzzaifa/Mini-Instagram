@@ -86,12 +86,12 @@ The project is organized into three main files:
 1. Clone the repository:
     ```bash
     git clone https://github.com/Muhammad-Huzzaifa/Mini-Instagram.git
-    cd Mini-Instagram
+    cd .\Mini-Instagram\Mini-Instagram
     ```
 
 2. Compile the project:
     ```bash
-    g++ -o Mini_Instagram Main.cpp
+    g++ -o Mini_Instagram *.cpp
     ```
 
 3. Run the project:
