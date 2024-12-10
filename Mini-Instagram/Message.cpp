@@ -36,9 +36,8 @@ void Message::viewMessages() const {
 			tempMessage = temp.topValue();
 			temp.pop();
 			cout << tempMessage.sender << ": " << tempMessage.content << endl;
-			tm time;
-			localtime_s(&time, &tempMessage.timestamp);
-			cout << "Timestamp: " << put_time(&time, "%Y-%m-%dT%H:%M:%S") << endl;
+			tm* time{ localtime(&tempMessage.timestamp) };
+			cout << "Timestamp: " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 			cout << "<-------------------->\n";
 		}
 	}

@@ -41,9 +41,8 @@ void Post::viewPosts() const {
 		tempPost = temp.topValue();
 		temp.pop();
 		cout << "Content: " << tempPost.content << endl;
-		tm time;
-		localtime_s(&time, &tempPost.timestamp);
-		cout << "Timestamp: " << put_time(&time, "%Y-%m-%dT%H:%M:%S") << endl;
+		tm* time{ localtime(&tempPost.timestamp) };
+		cout << "Timestamp: " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 		cout << "<-------------------->\n";
 	}
 }

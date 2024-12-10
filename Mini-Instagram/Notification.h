@@ -18,7 +18,7 @@ public:
 	~Notification();
 
 	void sendNotification(const string&, const string&, const time_t&);
-	NotificationNode processRecentNotification();
+	NotificationNode processNotification();
 	void clearAllNotifications();
 
 	Queue<NotificationNode> getNotifications() const;

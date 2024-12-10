@@ -1,5 +1,4 @@
-#ifndef GRAPH
-#define GRAPH
+#pragma once
 #include <string>
 #include "List.h"
 using namespace std;
@@ -46,8 +45,6 @@ public:
 public:
 	List<GraphNode<T>> nodes;
 };
-
-// #include "Graph.cpp"
 
 template <typename T>
 Edge<T>::Edge(const T& data, const string& weight)
@@ -218,5 +215,3 @@ void Graph<T>::makeNull() {
 	}
 	nodes.makeNull();
 }
-
-#endif

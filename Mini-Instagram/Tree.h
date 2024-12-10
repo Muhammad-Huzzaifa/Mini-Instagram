@@ -1,5 +1,4 @@
-#ifndef TREE
-#define TREE
+#pragma once
 #include <algorithm>
 using namespace std;
 
@@ -43,8 +42,6 @@ public:
 	int height(TreeNode<T>*);
 	int balanceFactor(TreeNode<T>*);
 };
-
-// #include "Tree.cpp"
 
 template <typename T>
 TreeNode<T>::TreeNode(const T& data)
@@ -285,5 +282,3 @@ template <typename T>
 int Tree<T>::balanceFactor(TreeNode<T>* temp) {
 	return height(temp->left) - height(temp->right);
 }
-
-#endif

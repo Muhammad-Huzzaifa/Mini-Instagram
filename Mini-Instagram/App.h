@@ -12,6 +12,12 @@ public:
 
 	void run();
 
+	void signup();
+	void login();
+	void search();
+
+	void processNotification(User&);
+
 public:
 	UserNode* logedInUser;
 	Tree<UserNode> users;

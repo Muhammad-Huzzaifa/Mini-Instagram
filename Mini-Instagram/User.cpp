@@ -71,6 +71,32 @@ void User::viewFriends() {
 	friends->viewFriends(user->name);
 }
 
+void User::viewFriendSugesstions() {
+	Tree<string> suggesstion{ friends->sugestFriends(user->name) };
+
+	if (!suggesstion.isEmpty()) {
+		cout << "Here are some friend suggesstions for you:\n";
+		cout << "<-------------------->\n";
+		void traverseSuggestionTree(TreeNode<string>*);
+		traverseSuggestionTree(suggesstion.getRoot());
+	}
+	else {
+		cout << "No any friend suggestion for you.\n";
+		cout << "<-------------------->\n";
+	}
+}
+
+void traverseSuggestionTree(TreeNode<string>* root) {
+	if (root != nullptr) {
+		traverseSuggestionTree(root->left);
+
+		cout << "# " << root->data << endl;
+		cout << "<-------------------->\n";
+
+		traverseSuggestionTree(root->right);
+	}
+}
+
 void User::addPost(const string& content) {
 	time_t now{ time(nullptr) };
 	user->posts.addPost(content, now);
@@ -174,9 +200,8 @@ void traversePostTree(TreeNode<PostNode>* root) {
 		traversePostTree(root->right);
 
 		cout << root->data.content << endl;
-		tm time;
-		localtime_s(&time, &root->data.timestamp);
-		cout << "Timestamp: " << put_time(&time, "%Y-%m-%dT%H:%M:%S") << endl;
+		tm* time{ localtime(&root->data.timestamp) };
+		cout << "Timestamp: " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 		cout << "<-------------------->\n";
 
 		traversePostTree(root->left);
@@ -292,9 +317,9 @@ void User::sendNotification(const string& to, const string& about, const time_t&
 	tempUser->data.notifications.sendNotification(user->name, about, now);
 }
 
-NotificationNode User::processRecentNotification() {
+NotificationNode User::processNotification() {
 	if (!user->notifications.getNotifications().isEmpty()) {
-		return user->notifications.processRecentNotification();
+		return user->notifications.processNotification();
 	}
 
 	cout << "There is not any notification to process.\n";

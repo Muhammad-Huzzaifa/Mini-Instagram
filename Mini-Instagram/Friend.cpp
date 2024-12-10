@@ -57,6 +57,30 @@ void Friend::blockActiveFriend(const string& from, const string& to) {
 	friends.removeEdge(from, to);
 }
 
+Tree<string> Friend::sugestFriends(const string& user) {
+	List<Edge<string>> userFriendList = getFriendList(user);
+	ListNode<Edge<string>>* userFriends = userFriendList.getHead();
+	Tree<string> suggestions;
+
+	while (userFriends != nullptr) {
+		List<Edge<string>> friendFriendList = getFriendList(userFriends->data.data);
+		ListNode<Edge<string>>* friendFriends = friendFriendList.getHead();
+		
+		while (friendFriends != nullptr) {
+
+			if (user != friendFriends->data.data && haveNoRelation(user, friendFriends->data.data)) {
+				suggestions.insert(friendFriends->data.data);
+			}
+
+			friendFriends = friendFriends->next;
+		}
+
+		userFriends = userFriends->next;
+	}
+
+	return suggestions;
+}
+
 Graph<string> Friend::getFriends() const {
 	return friends;
 }

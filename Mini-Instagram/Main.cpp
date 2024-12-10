@@ -1,6 +1,8 @@
 ﻿#include "App.h"
 
 int main() {
-	App obj;
-	obj.run();
+	App app;
+	app.run();
+
+	return 0;
 }

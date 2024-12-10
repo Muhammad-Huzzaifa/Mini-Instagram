@@ -1,5 +1,4 @@
-#ifndef STACK
-#define STACK
+#pragma once
 
 template <typename T>
 struct StackNode {
@@ -30,8 +29,6 @@ public:
 public:
 	StackNode<T>* top;
 };
-
-// #include "Stack.cpp"
 
 template <typename T>
 StackNode<T>::StackNode(const T& data, StackNode<T>* bottom)
@@ -137,5 +134,3 @@ void Stack<T>::makeNull() {
 		pop();
 	}
 }
-
-#endif

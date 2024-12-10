@@ -27,6 +27,7 @@ public:
 	void acceptFriendRequest(const string&);
 	void blockActiveFriend(const string&);
 	void viewFriends();
+	void viewFriendSugesstions();
 
 	void addPost(const string&);
 	void deleteRecentPost();
@@ -39,8 +40,8 @@ public:
 	void deleteAllMessages(const string&);
 	void viewCoversation(const string&);
 
-	void sendNotification(const string&, const string&, const time_t& = time(nullptr));
-	NotificationNode processRecentNotification();
+	void sendNotification(const string&, const string&, const time_t & = time(nullptr));
+	NotificationNode processNotification();
 	void clearAllNotifications();
 	void viewNotifications() const;
 

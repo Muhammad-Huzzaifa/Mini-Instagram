@@ -1,5 +1,4 @@
-#ifndef LIST
-#define LIST
+#pragma once
 
 template <typename T>
 struct ListNode {
@@ -30,8 +29,6 @@ public:
 public:
 	ListNode<T>* head;
 };
-
-// #include "List.cpp"
 
 template <typename T>
 ListNode<T>::ListNode(const T& data, ListNode<T>* next)
@@ -149,5 +146,3 @@ void List<T>::makeNull() {
 		temp = nullptr;
 	}
 }
-
-#endif

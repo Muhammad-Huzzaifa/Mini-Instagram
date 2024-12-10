@@ -1,5 +1,4 @@
-#ifndef QUEUE
-#define QUEUE
+#pragma once
 
 template <typename T>
 struct QueueNode {
@@ -30,8 +29,6 @@ public:
 public:
 	QueueNode<T>* front, * rear;
 };
-
-// #include "Queue.cpp"
 
 template <typename T>
 QueueNode<T>::QueueNode(const T& data, QueueNode<T>* next)
@@ -136,5 +133,3 @@ void Queue<T>::makeNull() {
 		dequeue();
 	}
 }
-
-#endif

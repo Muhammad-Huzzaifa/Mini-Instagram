@@ -8,7 +8,7 @@ void Notification::sendNotification(const string& sender, const string& about, c
 	notifications.enqueue(NotificationNode({ sender, about, now }));
 }
 
-NotificationNode Notification::processRecentNotification() {
+NotificationNode Notification::processNotification() {
 	NotificationNode recent{ notifications.frontValue() };
 	notifications.dequeue();
 	return recent;
@@ -31,9 +31,8 @@ void Notification::viewNotifications() const {
 		tempNotification = temp.frontValue();
 		temp.dequeue();
 		cout << tempNotification.about << " from " << tempNotification.sender << endl;
-		tm time;
-		localtime_s(&time, &tempNotification.timestamp);
-		cout << "Timestamp: " << put_time(&time, "%Y-%m-%dT%H:%M:%S") << endl;
+		tm* time{ localtime(&tempNotification.timestamp) };
+		cout << "Timestamp: " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 		cout << "<-------------------->\n";
 	}
 }

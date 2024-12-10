@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Graph.h"
+#include "Tree.h"
 using namespace std;
 
 class Friend {
@@ -18,6 +19,8 @@ public:
 	void sendFriendRequest(const string&, const string&);
 	void acceptFriendRequest(const string&, const string&);
 	void blockActiveFriend(const string&, const string&);
+
+	Tree<string> sugestFriends(const string&);
 
 	Graph<string> getFriends() const;
 	List<Edge<string>> getFriendList(const string&);
