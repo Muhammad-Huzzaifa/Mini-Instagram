@@ -19,12 +19,11 @@ public:
 	void processNotification(User&);
 
 	void loadUsers();
-	void saveUsers();
-
 	void loadFriends();
-	void saveFriends();
-
 	void loadMessages();
+
+	void saveUsers();
+	void saveFriends();
 	void saveMessages();
 
 public:
