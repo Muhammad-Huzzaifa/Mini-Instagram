@@ -18,6 +18,15 @@ public:
 
 	void processNotification(User&);
 
+	void loadUsers();
+	void saveUsers();
+
+	void loadFriends();
+	void saveFriends();
+
+	void loadMessages();
+	void saveMessages();
+
 public:
 	UserNode* logedInUser;
 	Tree<UserNode> users;

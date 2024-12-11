@@ -20,7 +20,7 @@ User::~User() {}
 
 void User::sendFriendRequest(const string& to) {
 	if (user->name == to) {
-		cout << "You can't send friend request to yourself.\n";
+		cout << "YOU CAN'T SEND FRIEND REQUEST TO YOURSELF\n";
 		return;
 	}
 
@@ -28,18 +28,18 @@ void User::sendFriendRequest(const string& to) {
 
 		if (friends->haveNoRelation(user->name, to)) {
 			friends->sendFriendRequest(user->name, to);
-			cout << "Friend request is sended successfully.\n";
+			cout << "FRIEND REQUEST IS SENDED SUCCESSFULLY\n";
 
 			sendNotification(to, "Friend request");
 		}
 
 		else {
-			cout << "You already have a relation with " << to << endl;
+			cout << "YOU ALREADY HAVE A RELATION " << to << endl;
 		}
 	}
 
 	else {
-		cout << "There is no user named " << to << endl;
+		cout << "THERE IS NO USER NAMED " << to << endl;
 	}
 }
 
@@ -47,11 +47,11 @@ void User::acceptFriendRequest(const string& to) {
 
 	if (friends->havePendingRelation(user->name, to)) {
 		friends->acceptFriendRequest(user->name, to);
-		cout << "Friend request " << to << " is accepted successfully.\n";
+		cout << "FRIEND REQUEST FROM " << to << " IS ACCESPTED SUCCESSFULLY\n";
 	}
 
 	else {
-		cout << "There is no any pending friend request from " << to << endl;
+		cout << "THERE IS NO ANY PENDING REQUEST FROM " << to << endl;
 	}
 }
 
@@ -59,11 +59,11 @@ void User::blockActiveFriend(const string& to) {
 
 	if (!friends->haveNoRelation(user->name, to)) {
 		friends->blockActiveFriend(user->name, to);
-		cout << "Now " << to << " have no connection with you.\n";
+		cout << "NOW " << to << " AND YOU ARE NOT FRIENDS\n";
 	}
 
 	else {
-		cout << to << " already have no connection with you.\n";
+		cout << to << " IS ALREADY NOT IN A FRIEND RELATION\n";
 	}
 }
 
@@ -75,13 +75,13 @@ void User::viewFriendSugesstions() {
 	Tree<string> suggesstion{ friends->sugestFriends(user->name) };
 
 	if (!suggesstion.isEmpty()) {
-		cout << "Here are some friend suggesstions for you:\n";
+		cout << "HERE ARE SOME FRIEND SUGGESSTIONS FOR YOU\n";
 		cout << "<-------------------->\n";
 		void traverseSuggestionTree(TreeNode<string>*);
 		traverseSuggestionTree(suggesstion.getRoot());
 	}
 	else {
-		cout << "No any friend suggestion for you.\n";
+		cout << "NO ANY FRIEND SUGGESSTION FOR YOU\n";
 		cout << "<-------------------->\n";
 	}
 }
@@ -114,19 +114,19 @@ void User::addPost(const string& content) {
 	}
 
 	cout << "<-------------------->\n";
-	cout << "Post is added successfully.\n";
+	cout << "POST IS ADDED SUCCESSFULLY\n";
 	cout << "<-------------------->\n";
 }
 
 void User::deleteRecentPost() {
 	if (!user->posts.getPosts().isEmpty()) {
 		user->posts.deleteRecentPost();
-		cout << "Recent post is deleted successfully.\n";
+		cout << "RECENT POST IS DELETED SUCCESSFULLY\n";
 		cout << "<-------------------->\n";
 	}
 
 	else {
-		cout << "No any post to delete.\n";
+		cout << "NO ANY POST TO DELETE\n";
 		cout << "<-------------------->\n";
 	}
 }
@@ -134,24 +134,24 @@ void User::deleteRecentPost() {
 void User::deleteAllPosts() {
 	if (!user->posts.getPosts().isEmpty()) {
 		user->posts.deleteAllPosts();
-		cout << "All posts deleted successfully.\n";
+		cout << "ALL POSTS DELETED SUCCESSFULLY\n";
 		cout << "<-------------------->\n";
 	}
 
 	else {
-		cout << "No any post to delete.\n";
+		cout << "NO ANY POST TO DELETE\n";
 		cout << "<-------------------->\n";
 	}
 }
 
 void User::viewPosts() const {
 	if (!user->posts.getPosts().isEmpty()) {
-		cout << user->name << "\'s Posts:\n";
+		cout << user->name << "\'s POSTS:\n";
 		user->posts.viewPosts();
 	}
 
 	else {
-		cout << "No any post to view.\n";
+		cout << "NO ANY POST TO VIEW\n";
 		cout << "<-------------------->\n";
 	}
 }
@@ -190,7 +190,7 @@ void User::viewFriendsPosts() const {
 	}
 
 	else {
-		cout << "No any post from friends.\n";
+		cout << "NO ANY POST FROM FRIENDS\n";
 		cout << "<-------------------->\n";
 	}
 }
@@ -201,7 +201,7 @@ void traversePostTree(TreeNode<PostNode>* root) {
 
 		cout << root->data.content << endl;
 		tm* time{ localtime(&root->data.timestamp) };
-		cout << "Timestamp: " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+		cout << "TIMESTAMP: " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 		cout << "<-------------------->\n";
 
 		traversePostTree(root->left);
@@ -211,7 +211,7 @@ void traversePostTree(TreeNode<PostNode>* root) {
 void User::sendMessage(const string& to, const string& content) {
 	ListNode<GraphNode<string>>* tempUser{ friends->getFriends().findNode(to) };
 	if (tempUser == nullptr) {
-		cout << "No user named " << to << "exist.\n";
+		cout << "NO USER NAMED " << to << " EXIST\n";
 		return;
 	}
 
@@ -220,7 +220,7 @@ void User::sendMessage(const string& to, const string& content) {
 	if (tempMessage != nullptr) {
 		time_t now{ time(nullptr) };
 		tempMessage->data.sendMessage(user->name, content, now);
-		cout << "Message is successfully sended to " << to << endl;
+		cout << "MESSAGE IS SUCCESSFULLY SENDED TO " << to << endl;
 		sendNotification(to, "Message");
 	}
 
@@ -231,12 +231,12 @@ void User::sendMessage(const string& to, const string& content) {
 			newMessageObj.sendMessage(user->name, content, now);
 
 			messages->insert(newMessageObj);
-			cout << "Message is successfully sended to " << to << endl;
+			cout << "MESSAGE IS SUCCESSFULLY SENDED TO " << to << endl;
 			sendNotification(to, "Message");
 		}
 
 		else {
-			cout << "You have no active relation with " << to << endl;
+			cout << "YOU HAVE NO FRIEND NAMED " << to << endl;
 		}
 	}
 }
@@ -245,7 +245,7 @@ void User::deleteRecentMessage(const string& user2) {
 	ListNode<GraphNode<string>>* tempUser{ friends->getFriends().findNode(user2) };
 
 	if (tempUser == nullptr) {
-		cout << "No user named " << user2 << "exist.\n";
+		cout << "NO USER NAMED " << user2 << "EXIST\n";
 		return;
 	}
 
@@ -258,18 +258,18 @@ void User::deleteRecentMessage(const string& user2) {
 			messages->remove(Message(user->name, user2));
 		}
 
-		cout << "Recent message is successfully deleted.\n";
+		cout << "RECENT MESSAGE IS DELETED SUCCESSFULLY\n";
 	}
 
 	else {
-		cout << "There is no any message between " << user->name << " and " << user2 << endl;
+		cout << "THERE IS NO ANY MESSAGE BETWEEN " << user->name << " AND " << user2 << endl;
 	}
 }
 
 void User::deleteAllMessages(const string& user2) {
 	ListNode<GraphNode<string>>* tempUser{ friends->getFriends().findNode(user2) };
 	if (tempUser == nullptr) {
-		cout << "No user named " << user2 << "exist.\n";
+		cout << "NO USER NAMED " << user2 << "EXIST\n";
 		return;
 	}
 
@@ -278,18 +278,18 @@ void User::deleteAllMessages(const string& user2) {
 	if (tempMessage != nullptr) {
 		tempMessage->data.deleteAllMessages();
 		messages->remove(Message(user->name, user2));
-		cout << "All messages are deleted successfully.\n";
+		cout << "ALL MESSAGES ARE DELETED SUCCESSFULLY\n";
 	}
 
 	else {
-		cout << "There is no any message between " << user->name << " and " << user2 << endl;
+		cout << "THERE IS NO ANY MESSAGE BETWEEN " << user->name << " AND " << user2 << endl;
 	}
 }
 
 void User::viewCoversation(const string& user2) {
 	ListNode<GraphNode<string>>* tempUser{ friends->getFriends().findNode(user2) };
 	if (tempUser == nullptr) {
-		cout << "No user named " << user2 << "exist.\n";
+		cout << "NO USER NAMED " << user2 << "EXIST\n";
 		cout << "<-------------------->\n";
 		return;
 	}
@@ -297,13 +297,13 @@ void User::viewCoversation(const string& user2) {
 	ListNode<Message>* tempMessage{ messages->find(Message(user->name, user2)) };
 
 	if (tempMessage != nullptr) {
-		cout << "\nConversation between " << user->name << " and " << user2 << endl;
+		cout << "\nCONVERSATION BETWEEN " << user->name << " AND " << user2 << endl;
 		tempMessage->data.viewMessages();
 	}
 
 	else {
 		cout << "<-------------------->\n";
-		cout << "There is no any message between " << user->name << " and " << user2 << endl;
+		cout << "THERE IS NO ANY MESSAGE BETWEEN " << user->name << " AND " << user2 << endl;
 		cout << "<-------------------->\n";
 	}
 }
@@ -322,30 +322,30 @@ NotificationNode User::processNotification() {
 		return user->notifications.processNotification();
 	}
 
-	cout << "There is not any notification to process.\n";
+	cout << "THERE IS NO ANY NOTIFICATION TO PROCESS\n";
 	return NotificationNode({ "","",0 });
 }
 
 void User::clearAllNotifications() {
 	if (!user->notifications.getNotifications().isEmpty()) {
 		user->notifications.clearAllNotifications();
-		cout << "Notifications are ceared successfully.\n";
+		cout << "NOTIFICATIONS ARE CLEARED SUCCESSFULLY\n";
 	}
 
 	else {
-		cout << "There is not any notification to clear.\n";
+		cout << "THERE IS NO ANY NOTIFICATION TO CLEAR\n";
 	}
 }
 
 void User::viewNotifications() const {
 	if (!user->notifications.getNotifications().isEmpty()) {
-		cout << user->name << "\'s notifications:\n";
+		cout << user->name << "\'s NOTIFICATIONS:\n";
 		user->notifications.viewNotifications();
 	}
 
 	else {
 		cout << "<-------------------->\n";
-		cout << "There is no any notification for you.\n";
+		cout << "THERE IS NO ANY NOTIFICATION FOR YOU\n";
 		cout << "<-------------------->\n";
 	}
 }

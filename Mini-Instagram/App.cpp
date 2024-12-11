@@ -12,7 +12,7 @@ void App::run() {
 
 	while (!exit) {
 		cout << "<---WELCOME TO MINI-INSTAGRAM--->\n";
-		cout << "1. Sign up\n2. Login\n3. Exit\nEnter your choice: ";
+		cout << "1# SIGN UP\n2# LOGIN\n3# EXIT\nENTER YOUR CHOICE: ";
 		int choice;
 		cin >> choice;
 
@@ -26,13 +26,13 @@ void App::run() {
 			login();
 		}
 		else if (choice == 3) {
-			cout << "Exiting...\n";
+			cout << "EXITING...\n";
 			cout << "<-------------------->\n";
 			exit = true;
 			break;
 		}
 		else {
-			cout << "Invalid choice...\n";
+			cout << "INVALID CHOICE...\n";
 			cout << "<-------------------->\n";
 		}
 
@@ -48,24 +48,24 @@ void App::signup() {
 	UserNode user{ UserNode() };
 
 	cout << "<-------------------->\n";
-	cout << "Enter your name (Alphabets/Space): ";
+	cout << "ENTER YOUR NAME: ";
 	getline(cin, user.name);
 	while (!isValidName(user.name) || users.find(user) != nullptr) {
-		cout << "Invalid or already taken! Enter again (Alphabets/Space): ";
+		cout << "INVALID OR ALREADY TAKEN! ENTER AGAIN (Alphabets / Space): ";
 		getline(cin, user.name);
 	}
 
-	cout << "Enter your password (No Space/ No ,/At least 8): ";
+	cout << "ENTER YOUR PASSWORD: ";
 	getline(cin, user.password);
 	while (!isValidPassword(user.password)) {
-		cout << "Invalid password! Enter again (No Space/ No ,/At least 8): ";
+		cout << "INVALID PASSWORD! ENTER AGAIN (No Space/ No , /At least 8): ";
 		getline(cin, user.password);
 	}
 
-	cout << "Enter your city (Alphabets/Space): ";
+	cout << "ENTER YOUR CITY: ";
 	getline(cin, user.city);
 	while (!isValidName(user.city)) {
-		cout << "Invalid city! Enter again (Alphabets/Space): ";
+		cout << "INVALID CITY! ENTER AGAIN (Alphabets / Space): ";
 		getline(cin, user.city);
 	}
 
@@ -76,7 +76,7 @@ void App::signup() {
 	loginHash.insertPair(user.name, user.password);
 
 	cout << "<-------------------->\n";
-	cout << "Account is created successfully.\n";
+	cout << "ACCOUNT CREATED SUCCESSFULLY\n";
 	cout << "<-------------------->\n";
 }
 
@@ -84,23 +84,23 @@ void App::login() {
 	string name, password;
 
 	cout << "<-------------------->\n";
-	cout << "Enter your name (Alphabets/Space): ";
+	cout << "ENTER YOUR NAME: ";
 	getline(cin, name);
 	while (!isValidName(name)) {
-		cout << "Invalid name! Enter again (Alphabets/Space): ";
+		cout << "INVALID NAME! ENTER AGAIN (Alphabets / Space): ";
 		getline(cin, name);
 	}
 
-	cout << "Enter your password (No Space/ No ,/At least 8): ";
+	cout << "ENTER YOUR PASSWORD: ";
 	getline(cin, password);
 	while (!isValidPassword(password)) {
-		cout << "Invalid password! Enter again (No Space/ No ,/At least 8): ";
+		cout << "INVALID PASSWORD! ENTER AGAIN (No Space/ No , /At least 8): ";
 		getline(cin, password);
 	}
 	cout << "<-------------------->\n";
 
 	if (loginHash.getPassword(name) == password) {
-		cout << "You are loged in successfully.\n";
+		cout << "YOU ARE LOGGED IN SUCCESSFULLY\n";
 		cout << "<-------------------->\n";
 
 		UserNode tempUser{ UserNode() };
@@ -117,8 +117,8 @@ void App::login() {
 
 		bool logedOut{ false };
 		while (!logedOut) {
-			cout << "<---" << name << "--->\n";
-			cout << " 1. Add post\n 2. Delete recent post\n 3. Delete all posts\n 4. Viw own posts\n 5. View friends posts\n 6. Search user\n 7. View friend sugesstions\n 8. Send friend request\n 9. Viw own friends\n10. Block friend\n11. Send message\n12. View conversation\n13. Delete recent message\n14. Delete all messages\n15. Show notifications\n16. Process notification\n17. Logout\nEnter your choice: ";
+			cout << "<---WELCOME " << name << "--->\n";
+			cout << " 1# ADD POST\n 2# DELETE RECENT POST\n 3# DELETE ALL POSTS\n 4# VIEW OWN POSTS\n 5# VIEW FRIENDS POSTS\n 6# SEARCH USER\n 7# VIEW FRIEND SUGGESTIONS\n 8# SEND FRIEND REQUEST\n 9# VIEW OWN FRIENDS\n10# BLOCK FRIEND\n11# SEND MESSAGE\n12# VIEW CONVERSATION\n13# DELETE RECENT MESSAGE\n14# DELETE ALL MESSAGES\n15# SHOW NOTIFICATIONS\n16# PROCESS NOTIFICATION\n17# ACCEPT FRIEND REQUEST\n18# LOGOUT\nENTER YOUR CHOICE: ";
 			int ichoice;
 			cin >> ichoice;
 
@@ -127,7 +127,7 @@ void App::login() {
 
 			if (ichoice == 1) {
 				string content;
-				cout << "Enter the content of the post: ";
+				cout << "ENETR CONTENT: ";
 				getline(cin, content);
 				user.addPost(content);
 			}
@@ -151,7 +151,7 @@ void App::login() {
 			}
 			else if (ichoice == 8) {
 				string username;
-				cout << "Enter username you want to send friend request: ";
+				cout << "ENTER USERNAME: ";
 				getline(cin, username);
 
 				cout << "<-------------------->\n";
@@ -159,12 +159,12 @@ void App::login() {
 				cout << "<-------------------->\n";
 			}
 			else if (ichoice == 9) {
-				cout << name << "\'s friend list:\n";
+				cout << name << "\'s FRIEND LIST:\n";
 				user.viewFriends();
 			}
 			else if (ichoice == 10) {
 				string username;
-				cout << "Enter frined\'s name you want to block: ";
+				cout << "ENTER FRIEND\'S NAME: ";
 				getline(cin, username);
 
 				cout << "<-------------------->\n";
@@ -173,9 +173,9 @@ void App::login() {
 			}
 			else if (ichoice == 11) {
 				string username, content;
-				cout << "Enter your frined\'s name: ";
+				cout << "ENTER FRIEND\'S NAME: ";
 				getline(cin, username);
-				cout << "Enter your message: ";
+				cout << "ENTER MESSAGE: ";
 				getline(cin, content);
 
 				cout << "<-------------------->\n";
@@ -184,7 +184,7 @@ void App::login() {
 			}
 			else if (ichoice == 12) {
 				string username;
-				cout << "Enter your friend\'s name whose conversation you want to see: ";
+				cout << "ENTER FRIEND\'S NAME: ";
 				getline(cin, username);
 
 				cout << "<-------------------->\n";
@@ -192,7 +192,7 @@ void App::login() {
 			}
 			else if (ichoice == 13) {
 				string username;
-				cout << "Enter your friend\'s name b/w which you want to delete recent message: ";
+				cout << "ENTER FRIEND\'S NAME: ";
 				getline(cin, username);
 
 				cout << "<-------------------->\n";
@@ -201,7 +201,7 @@ void App::login() {
 			}
 			else if (ichoice == 14) {
 				string username;
-				cout << "Enter your friend\'s name b/w you want to delete conversation: ";
+				cout << "ENTER FRIEND\'S NAME: ";
 				getline(cin, username);
 
 				cout << "<-------------------->\n";
@@ -215,14 +215,23 @@ void App::login() {
 				processNotification(user);
 			}
 			else if (ichoice == 17) {
-				cout << "Logging out...\n";
+				string username;
+				cout << "ENTER FRIEND\'S NAME: ";
+				getline(cin, username);
+
+				cout << "<-------------------->\n";
+				user.acceptFriendRequest(username);
+				cout << "<-------------------->\n";
+			}
+			else if (ichoice == 18) {
+				cout << "LOGGING OUT...\n";
 				cout << "<-------------------->\n";
 				logedInUser = nullptr;
 				logedOut = true;
 				break;
 			}
 			else {
-				cout << "Invalid choice...\n";
+				cout << "INVALID CHOICE...\n";
 				cout << "<-------------------->\n";
 			}
 
@@ -234,7 +243,7 @@ void App::login() {
 		}
 	}
 	else {
-		cout << "Incorrect name or password...\n";
+		cout << "INCORRECT NAME OR PASSWORD...\n";
 		cout << "<-------------------->\n";
 	}
 }
@@ -246,13 +255,13 @@ void App::search() {
 	void searchUsers(TreeNode<UserNode>*, const string&, List<string>&);
 
 	string tosearch;
-	cout << "Enter your search: ";
+	cout << "ENTER YOUR SEARCH: ";
 	getline(cin, tosearch);
 	cout << "<-------------------->\n\n";
 
 	searchUsers(users.getRoot(), lowerCase(tosearch), searchedUsers);
 	if (!searchedUsers.isEmpty()) {
-		cout << "Users found in search:\n";
+		cout << "USERS FOUND IN SEARCH:\n";
 		cout << "<-------------------->\n";
 		ListNode<string>* current{ searchedUsers.getHead() };
 		while (current != nullptr) {
@@ -261,14 +270,14 @@ void App::search() {
 				cout << "<-------------------->\n";
 			}
 			else {
-				cout << "# You" << endl;
+				cout << "# YOU" << endl;
 				cout << "<-------------------->\n";
 			}
 			current = current->next;
 		}
 	}
 	else {
-		cout << "No user found from your search.\n";
+		cout << "NO ANY USER MACHES YOUR SEARCH\n";
 		cout << "<-------------------->\n";
 	}
 }
@@ -296,9 +305,9 @@ void App::processNotification(User& user) {
 
 	if (earliest.about == "Friend request") {
 		tm* time{ localtime(&earliest.timestamp) };
-		cout << "Friend request from " << earliest.sender << " at " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+		cout << "FRIEND REQUEST FROM " << earliest.sender << " AT " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 
-		cout << "1. Accept friend request\n2. Reject friend request\n3. Remain unseen for later\nEnter your choice: ";
+		cout << "1# ACCEPT FRIEND REQUEST\n2# REJECT FRIEND REQUEST\n3# REMAIN UNSEEN\nENTER YOUR CHOICE: ";
 		int rchoice;
 		cin >> rchoice;
 		cin.clear();
@@ -327,9 +336,9 @@ void App::processNotification(User& user) {
 	}
 	else if (earliest.about == "Message") {
 		tm* time{ localtime(&earliest.timestamp) };
-		cout << "Message from " << earliest.sender << " at " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+		cout << "MESSAGE FROM " << earliest.sender << " AT " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 
-		cout << "1. View conversation\n2. Mark as reed and go\n3. Remain unseen for later\nEnter your choice: ";
+		cout << "1# VIEW CONVERSATION\n2# MARK AS READ AND GO\n3# REMAIN UNSEEN\nENTER YOUR CHOICE: ";
 		int rchoice;
 		cin >> rchoice;
 		cin.clear();
@@ -355,9 +364,9 @@ void App::processNotification(User& user) {
 	}
 	else if (earliest.about == "Post") {
 		tm* time{ localtime(&earliest.timestamp) };
-		cout << "Post from " << earliest.sender << " at " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+		cout << "POST FROM " << earliest.sender << " AT " << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
 
-		cout << "1. See friends posts\n2. Mark as reed and go\n3. Remain unseen for later\nEnter your choice: ";
+		cout << "1# SEE FRIENDS POSTS\n2# MARK AS READ AND GO\n3# REMAIN UNSEEN\nENTER YOUR CHOICE: ";
 		int rchoice;
 		cin >> rchoice;
 		cin.clear();
@@ -381,6 +390,30 @@ void App::processNotification(User& user) {
 			cout << "<-------------------->\n";
 		}
 	}
+}
+
+void App::loadUsers() {
+
+}
+
+void App::loadFriends() {
+
+}
+
+void App::loadMessages() {
+
+}
+
+void App::saveUsers() {
+
+}
+
+void App::saveFriends() {
+
+}
+
+void App::saveMessages() {
+
 }
 
 bool App::isValidName(const std::string& name) {
