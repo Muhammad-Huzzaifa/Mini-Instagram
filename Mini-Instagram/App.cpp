@@ -2,9 +2,16 @@
 
 App::App()
 	: logedInUser{ nullptr } {
+	loadUsers();
+	loadFriends();
+	loadMessages();
 }
 
-App::~App() {}
+App::~App() {
+	saveUsers();
+	saveFriends();
+	saveMessages();
+}
 
 void App::run() {
 	system("cls");
@@ -393,27 +400,27 @@ void App::processNotification(User& user) {
 }
 
 void App::loadUsers() {
-
+	
 }
 
 void App::loadFriends() {
-
+	
 }
 
 void App::loadMessages() {
-
+	
 }
 
 void App::saveUsers() {
-
+	
 }
 
 void App::saveFriends() {
-
+	
 }
 
 void App::saveMessages() {
-
+	
 }
 
 bool App::isValidName(const std::string& name) {

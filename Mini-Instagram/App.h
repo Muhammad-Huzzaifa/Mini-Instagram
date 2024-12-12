@@ -1,6 +1,7 @@
 #pragma once
 #include <limits>
 #include <cctype>
+#include <fstream>
 #include "User.h"
 #include "HashTable.h"
 using namespace std;
@@ -19,11 +20,12 @@ public:
 	void processNotification(User&);
 
 	void loadUsers();
-	void loadFriends();
-	void loadMessages();
-
 	void saveUsers();
+
+	void loadFriends();
 	void saveFriends();
+
+	void loadMessages();
 	void saveMessages();
 
 public:

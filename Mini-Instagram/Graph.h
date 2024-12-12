@@ -30,6 +30,7 @@ public:
 
 	Graph<T>& operator=(const Graph<T>&);
 
+	ListNode<GraphNode<T>>* firstNode();
 	ListNode<GraphNode<T>>* findNode(const T&);
 	ListNode<Edge<T>>* findEdge(const T&, const T&);
 
@@ -113,6 +114,11 @@ Graph<T>& Graph<T>::operator=(const Graph<T>& other) {
 		}
 	}
 	return *this;
+}
+
+template <typename T>
+ListNode<GraphNode<T>>* Graph<T>::firstNode() {
+	return nodes.getHead();
 }
 
 template <typename T>
