@@ -462,6 +462,58 @@ void App::processNotification(User &user)
 	}
 }
 
+void App::traverseForSaving(ofstream &ufile, ofstream &pfile, ofstream &nfile, TreeNode<UserNode> *root)
+{
+	if (root != nullptr) {
+		traverseForSaving(ufile, pfile, nfile, root->left);
+
+		UserNode user{ root->data };
+		
+		ufile << user.name << ',' << user.password << ',' << user.city << ',';
+
+		time_t t{ user.lastLoginTime };
+		tm* time{ localtime(&t) };
+		ufile << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+		
+		Stack<PostNode> posts{ user.posts.getPosts() };
+		Stack<PostNode> temp;
+
+		while (!posts.isEmpty()) {
+			temp.push(posts.topValue());
+			posts.pop();
+		}
+
+		pfile << user.name << endl;
+		while (!temp.isEmpty()) {
+			pfile << temp.topValue().content << endl;
+
+			t = temp.topValue().timestamp;
+			time = localtime(&t);
+			pfile << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+
+			temp.pop();
+		}
+		pfile << endl;
+
+
+		Queue<NotificationNode> notifications{ user.notifications.getNotifications() };
+
+		nfile << user.name << endl;
+		while (!notifications.isEmpty()) {
+			nfile << notifications.frontValue().sender << ',' << notifications.frontValue().about << ',';
+			
+			t = notifications.frontValue().timestamp;
+			time = localtime(&t);
+			nfile << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
+
+			notifications.dequeue();
+		}
+		nfile << endl;
+
+		traverseForSaving(ufile, pfile, nfile, root->right);
+	}
+}
+
 void App::loadUsers()
 {
 	ifstream file{"userinfo.csv"};
@@ -773,7 +825,6 @@ void App::saveUsers()
 		return;
 	}
 
-	void traverseForSaving(ofstream &, ofstream &, ofstream &, TreeNode<UserNode> *);
 	traverseForSaving(ufile, pfile, nfile, users.getRoot());
 
 	ufile.close();
@@ -817,56 +868,8 @@ void App::saveFriends()
 
 	file.close();
 }
-void traverseForSaving(ofstream& ufile, ofstream& pfile, ofstream& nfile, TreeNode<UserNode>* root) {
-	if (root != nullptr) {
-		traverseForSaving(ufile, pfile, nfile, root->left);
-
-		UserNode user{ root->data };
-		
-		ufile << user.name << ',' << user.password << ',' << user.city << ',';
-
-		time_t t{ user.lastLoginTime };
-		tm* time{ localtime(&t) };
-		ufile << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
-		
-		Stack<PostNode> posts{ user.posts.getPosts() };
-		Stack<PostNode> temp;
-
-		while (!posts.isEmpty()) {
-			temp.push(posts.topValue());
-			posts.pop();
-		}
-
-		pfile << user.name << endl;
-		while (!temp.isEmpty()) {
-			pfile << temp.topValue().content << endl;
-
-			t = temp.topValue().timestamp;
-			time = localtime(&t);
-			pfile << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
-
-			temp.pop();
-		}
-		pfile << endl;
 
 
-		Queue<NotificationNode> notifications{ user.notifications.getNotifications() };
-
-		nfile << user.name << endl;
-		while (!notifications.isEmpty()) {
-			nfile << notifications.frontValue().sender << ',' << notifications.frontValue().about << ',';
-			
-			t = notifications.frontValue().timestamp;
-			time = localtime(&t);
-			nfile << put_time(time, "%Y-%m-%dT%H:%M:%S") << endl;
-
-			notifications.dequeue();
-		}
-		nfile << endl;
-
-		traverseForSaving(ufile, pfile, nfile, root->right);
-	}
-}
 void App::saveMessages()
 {
 	ofstream file{"messages.txt"};
