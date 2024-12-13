@@ -18,7 +18,7 @@ public:
 	void search();
 
 	void processNotification(User&);
-
+	void traverseForSaving(ofstream& ufile, ofstream& pfile, ofstream& nfile, TreeNode<UserNode>* root);
 	void loadUsers();
 	void saveUsers();
 
@@ -28,7 +28,7 @@ public:
 	void loadMessages();
 	void saveMessages();
 
-public:
+public:	
 	UserNode* logedInUser;
 	Tree<UserNode> users;
 	Friend friends;
