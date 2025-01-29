@@ -1,8 +1,7 @@
 from copy import deepcopy
 from datetime import datetime
 from Post import Post
-from Notification import Notification
-from Friend import Friend
+from Notification import Notification, NotificationNode
 from Message import Message
 from Tree import Tree
 
@@ -16,14 +15,14 @@ class UserNode:
         self.posts = Post()
         self.notifications = Notification()
 
-        def __eq__(self, other):
-            return self.name == other.name
-        
-        def __lt__(self, other):
-            return self.name < other.name
-        
-        def __gt__(self, other):
-            return self.name > other.name
+    def __eq__(self, other):
+        return self.name == other.name
+    
+    def __lt__(self, other):
+        return self.name < other.name
+    
+    def __gt__(self, other):
+        return self.name > other.name
 
 
 class User:
@@ -151,25 +150,94 @@ class User:
             print("<-------------------->")
 
     def sendMessage(self, toNode, content):
-        pass
+        tempUser = self.friends.getFriends().findNode(toNode)
+        if not tempUser:
+            print(f"THERE IS NO USER NAMED {toNode}")
+            return
+        tempMessage = self.messages.find(Message(self.user.name, toNode))
+        if tempMessage:
+            now = datetime.now().timestamp()
+            tempMessage.data.sendMessage(self.user.name, content, now)
+            print(f"MESSAGE IS SUCCESSFULLY SENT TO {toNode}")
+            self.sendNotification(toNode, "Message")
+        else:
+            if self.friends.haveActiveRelation(self.user.name, toNode):
+                newMessageObj = Message(self.user.name, toNode)
+                now = datetime.now().timestamp()
+                newMessageObj.sendMessage(self.user.name, content, now)
+                self.messages.insert(newMessageObj)
+                print(f"MESSAGE IS SUCCESSFULLY SENT TO {toNode}")
+                self.sendNotification(toNode, "Message")
+            else:
+                print(f"YOU ARE NOT FRIENDS WITH {toNode}")
+
 
     def deleteRecentMessage(self, user2):
-        pass
+        tempUser = self.friends.getFriends().findNode(user2)
+        if not tempUser:
+            print(f"THERE IS NO USER NAMED {user2}")
+            return
+        tempMessage = self.messages.find(Message(self.user.name, user2))
+        if tempMessage:
+            tempMessage.data.deleteRecentMessage()
+            if tempMessage.data.getMessages().isEmpty():
+                self.messages.remove(Message(self.user.name, user2))
+            print(f"RECENT MESSAGE IS DELETED SUCCESSFULLY")
+        else:
+            print(f"THERE IS NO ANY MESSAGE BETWEEN {self.user.name} AND {user2}")
 
     def deleteAllMessages(self, user2):
-        pass
+        tempUser = self.friends.getFriends().findNode(user2)
+        if not tempUser:
+            print(f"THERE IS NO USER NAMED {user2}")
+            return
+        tempMessage = self.messages.find(Message(self.user.name, user2))
+        if tempMessage:
+            tempMessage.data.deleteAllMessages()
+            self.messages.remove(Message(self.user.name, user2))
+            print(f"ALL MESSAGES ARE DELETED SUCCESSFULLY")
+        else:
+            print(f"THERE IS NO ANY MESSAGE BETWEEN {self.user.name} AND {user2}")
 
     def viewConversation(self, user2):
-        pass
+        tempUser = self.friends.getFriends().findNode(user2)
+        if not tempUser:
+            print(f"THERE IS NO USER NAMED {user2}")
+            print("<-------------------->")
+            return
+        tempMessage = self.messages.find(Message(self.user.name, user2))
+        if tempMessage:
+            print(f"CONVERSATION BETWEEN {self.user.name} AND {user2}")
+            tempMessage.data.viewMessages()
+        else:
+            print("<-------------------->")
+            print(f"THERE IS NO ANY MESSAGE BETWEEN {self.user.name} AND {user2}")
+            print("<-------------------->")
 
     def sendNotification(self, toNode, about, now):
-        pass
+        username = UserNode()
+        username.name = toNode
+        tempUser = self.users.find(username)
+        tempUser.data.notifications.sendNotification(self.user.name, about, now)
     
     def processNotification(self):
-        pass
+        if not self.user.notifications.getNotifications().isEmpty():
+            return self.user.notifications.processNotification()
+        print("THERE IS NO ANY NOTIFICATION TO PROCESS")
+        return NotificationNode("", "", 0)
 
     def clearAllNotifications(self):
-        pass
+        if not self.user.notifications.getNotifications().isEmpty():
+            self.user.notifications.clearAllNotifications()
+            print("ALL NOTIFICATIONS ARE CLEARED SUCCESSFULLY")
+        else:
+            print("THERE IS NO ANY NOTIFICATION TO CLEAR")
 
     def viewNotifications(self):
-        pass
+        if not self.user.notifications.getNotifications().isEmpty():
+            print(f"{self.user.name}'s NOTIFICATIONS:")
+            self.user.notifications.viewNotifications()
+        else:
+            print("<-------------------->")
+            print(f"THERE IS NO ANY NOTIFICATION FOR YOU")
+            print("<-------------------->")
